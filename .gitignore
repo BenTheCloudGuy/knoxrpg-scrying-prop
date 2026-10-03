@@ -1,0 +1,11 @@
+node_modules/
+npm-debug.log*
+*.log
+.DS_Store
+
+# Runtime state — never commit
+data/
+logs/
+*.db
+*.db-wal
+*.db-shm

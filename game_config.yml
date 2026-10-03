@@ -1,0 +1,28 @@
+# KnoxRPG Scrying Prop — Game registry
+# ------------------------------------
+# Each game lives in its OWN repo directory (`path`). The launcher never clones into
+# a subfolder of itself — clone/pull always targets the game's `path`.
+#
+# Fields:
+#   id      : stable short id (used in URLs/API). lowercase-kebab.
+#   name    : display name shown on the launcher.
+#   repo    : GitHub repo URL (used to check for newer version tags).
+#   path    : absolute path to the local checkout of that repo.
+#   service : systemd unit used to start/stop/restart the game.
+#   start   : (optional) start script inside the repo, for reference/fallback.
+#   auth    : (optional) only needed if the host isn't already configured for the repo.
+#             SSH via ~/.ssh/config is assumed for BenTheCloudGuy repos, so normally omit.
+#               type : ssh | https
+#               key  : path to SSH private key   (type: ssh)
+#               token: path to token file        (type: https)
+
+games:
+  - id: dungeon-runner
+    name: Dungeon Runner
+    repo: https://github.com/BenTheCloudGuy/knoxrpg-netheril-prop
+    path: /home/benthebuilder/knoxrpg-netheril-prop
+    service: netheril
+    start: ./start.sh
+    # auth:
+    #   type: ssh
+    #   key: ~/.ssh/id_ed25519

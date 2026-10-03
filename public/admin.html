@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnoxRPG · Admin</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin">
+  <!-- Login gate -->
+  <div id="login" class="login-screen">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <div class="brand">KnoxRPG</div>
+      <div class="subtitle">Admin Portal</div>
+      <input id="username" name="username" placeholder="Username" autocomplete="username" />
+      <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" />
+      <button type="submit" class="btn play">Sign in</button>
+      <div id="login-msg" class="msg"></div>
+    </form>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dash" class="dash" hidden>
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="brand small">KnoxRPG Admin</span>
+        <span id="conn-indicator" class="conn" title="Live event stream">●</span>
+      </div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="games">Games</button>
+        <button class="tab" data-tab="system">System</button>
+        <button class="tab" data-tab="network">Network</button>
+        <button class="tab" data-tab="logs">Logs</button>
+        <button class="tab" data-tab="events">Events</button>
+      </nav>
+      <div class="topbar-right">
+        <a class="link" href="/">Kiosk</a>
+        <span id="whoami" class="muted"></span>
+        <button id="logout" class="btn small">Log out</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Games -->
+      <section class="panel active" data-panel="games">
+        <div class="panel-head">
+          <h2>Games</h2>
+          <button class="btn small" data-refresh="games">Refresh</button>
+        </div>
+        <div id="games-list" class="cards"></div>
+      </section>
+
+      <!-- System -->
+      <section class="panel" data-panel="system">
+        <div class="panel-head">
+          <h2>System</h2>
+          <button class="btn small" data-refresh="system">Refresh</button>
+        </div>
+        <div id="health" class="health-grid"></div>
+
+        <div class="group">
+          <h3>Launcher</h3>
+          <div id="launcher-version" class="muted">—</div>
+          <div class="row-actions">
+            <button class="btn small" data-act="launcher-restart">Restart launcher</button>
+            <button class="btn small update" data-act="launcher-update" hidden>Update launcher</button>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3>Kiosk</h3>
+          <div class="row-actions">
+            <button class="btn small" data-act="kiosk-return">Return to launcher</button>
+            <button class="btn small" data-act="kiosk-relaunch">Relaunch Firefox</button>
+            <button class="btn small stop" data-act="kiosk-kill">Kill Firefox</button>
+          </div>
+        </div>
+
+        <div class="group danger-zone">
+          <h3>Power</h3>
+          <div class="row-actions">
+            <button class="btn small stop" data-act="reboot">Reboot Pi</button>
+            <button class="btn small stop" data-act="shutdown">Shutdown Pi</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network -->
+      <section class="panel" data-panel="network">
+        <div class="panel-head">
+          <h2>Network</h2>
+          <button class="btn small" data-refresh="network">Rescan</button>
+        </div>
+        <div id="net-summary" class="muted">—</div>
+        <div id="wifi-list" class="wifi-list"></div>
+      </section>
+
+      <!-- Logs -->
+      <section class="panel" data-panel="logs">
+        <div class="panel-head">
+          <h2>Logs</h2>
+          <div class="log-controls">
+            <select id="log-source"></select>
+            <input id="log-search" placeholder="Search…" />
+            <button class="btn small" data-refresh="logs">Search</button>
+            <label class="muted"><input type="checkbox" id="log-follow" checked> Follow</label>
+          </div>
+        </div>
+        <pre id="log-view" class="log-view"></pre>
+      </section>
+
+      <!-- Events -->
+      <section class="panel" data-panel="events">
+        <div class="panel-head">
+          <h2>Event Stream</h2>
+          <button class="btn small" data-refresh="events">Refresh</button>
+        </div>
+        <pre id="event-view" class="log-view"></pre>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast"></div>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

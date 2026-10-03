@@ -1,0 +1,26 @@
+# KnoxRPG Scrying Prop — deployment descriptor
+# Consumed by deploy/deploy.sh. Values here drive an idempotent install.
+
+launcher:
+  service_name: knoxrpg-launcher
+  user: benthebuilder
+  workdir: /home/benthebuilder/knoxrpg-scrying-prop
+  port: 80
+
+# APT packages required on the Raspberry Pi. Installed only when missing.
+apt_packages:
+  - nodejs
+  - npm
+  - network-manager
+  - firefox-esr
+  - curl
+
+# Narrow sudo permissions the launcher needs (service + power control).
+sudoers:
+  file: /etc/sudoers.d/knoxrpg-launcher
+
+# Settings written into the launcher SQLite DB (idempotent upsert).
+settings:
+  kiosk_display: ":0"
+  kiosk_xauthority: /home/benthebuilder/.Xauthority
+  launcher_service: knoxrpg-launcher

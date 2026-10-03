@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <title>KnoxRPG · WiFi</title>
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+  <div id="stage">
+    <svg id="aperture" viewBox="0 0 1920 1080" preserveAspectRatio="none"><polygon points=""/></svg>
+    <div id="safe">
+      <div class="wifi-wrap">
+        <div class="wifi-head">
+          <div>
+            <div class="brand" style="font-size:52px;">WiFi</div>
+            <div class="subtitle" id="wifi-status">Checking…</div>
+          </div>
+          <button class="back-btn" onclick="location.href='/'">‹ Back</button>
+        </div>
+        <div class="rule"></div>
+        <div id="wifi-list" class="wifi-list"><div class="empty">Scanning…</div></div>
+      </div>
+    </div>
+
+    <!-- Connect dialog with on-screen keyboard -->
+    <div id="overlay" class="overlay">
+      <div class="dialog">
+        <h3 id="dlg-title">Connect</h3>
+        <div class="field">
+          <input id="pw" type="text" autocomplete="off" placeholder="Network password" />
+        </div>
+        <div class="kbd" id="kbd"></div>
+        <div id="dlg-msg" class="msg"></div>
+        <div class="dlg-actions">
+          <button class="btn" onclick="WiFi.closeDialog()">Cancel</button>
+          <button class="btn play" id="connect-btn" onclick="WiFi.connect()">Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="toast"></div>
+  <script src="/js/aperture.js"></script>
+  <script src="/js/wifi.js"></script>
+</body>
+</html>

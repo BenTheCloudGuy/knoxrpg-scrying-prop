@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <title>KnoxRPG Scrying Prop</title>
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+  <div id="stage">
+    <svg id="aperture" viewBox="0 0 1920 1080" preserveAspectRatio="none"><polygon points=""/></svg>
+    <div id="safe">
+      <div class="header">
+        <div class="brand">KnoxRPG</div>
+        <div class="subtitle">Scrying Prop · Choose Your Game</div>
+      </div>
+
+      <div class="netstrip">
+        <span><span id="netdot" class="dot off"></span><span id="netstatus">Checking…</span></span>
+        <span>SSID: <b id="ssid">—</b></span>
+        <span>IP: <b id="ip">—</b></span>
+        <button class="wifi-btn" onclick="location.href='/wifi.html'">Manage WiFi</button>
+        <button class="wifi-btn" onclick="location.href='/admin.html'">Admin</button>
+      </div>
+
+      <div class="rule"></div>
+
+      <div id="games" class="games"></div>
+    </div>
+  </div>
+  <div id="toast"></div>
+  <script src="/js/aperture.js"></script>
+  <script src="/js/launcher.js"></script>
+</body>
+</html>

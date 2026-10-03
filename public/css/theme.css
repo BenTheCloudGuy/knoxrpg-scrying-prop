@@ -1,0 +1,242 @@
+/* KnoxRPG Scrying Prop — Launcher theme
+   Dark arcane obsidian + ætheric blue. Distinct from the Netheril parchment theme.
+   All content is laid out inside a 1920x1080 stage and kept within the foam-aperture
+   safe box (see config/screen-aperture.json). */
+
+@font-face { font-family: 'Cinzel Decorative'; font-weight: 700; font-display: swap; src: url('/fonts/CinzelDecorative-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Cinzel Decorative'; font-weight: 900; font-display: swap; src: url('/fonts/CinzelDecorative-Black.woff2') format('woff2'); }
+@font-face { font-family: 'Cinzel'; font-weight: 500; font-display: swap; src: url('/fonts/Cinzel-Regular.woff2') format('woff2'); }
+
+:root {
+  --safe-top: 150px;
+  --safe-right: 195px;
+  --safe-bottom: 165px;
+  --safe-left: 165px;
+
+  --ink: #e9f2ff;
+  --ink-dim: #9fb4d6;
+  --gold: #d9b36a;
+  --gold-bright: #f3d79a;
+  --aether: #4fd0ff;
+  --aether-deep: #1c6fa8;
+  --danger: #ff6b6b;
+  --ok: #58e08a;
+  --panel: rgba(12, 20, 36, 0.72);
+  --panel-edge: rgba(120, 180, 230, 0.22);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  font-family: 'Cinzel', 'Georgia', serif;
+  color: var(--ink);
+  user-select: none; -webkit-user-select: none;
+  touch-action: manipulation;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(79, 208, 255, 0.10), transparent 55%),
+    radial-gradient(ellipse at 20% 85%, rgba(40, 90, 150, 0.18), transparent 60%),
+    radial-gradient(ellipse at 82% 78%, rgba(120, 70, 180, 0.14), transparent 60%),
+    linear-gradient(160deg, #060a14 0%, #0a1222 45%, #070b16 100%);
+  background-color: #060a14;
+}
+
+/* Stage: a fixed 1920x1080 design space, scaled to fit the viewport. */
+#stage {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 1920px; height: 1080px;
+  transform: translate(-50%, -50%) scale(var(--stage-scale, 1));
+  transform-origin: center center;
+}
+
+/* Safe box: everything meaningful lives inside the foam aperture. */
+#safe {
+  position: absolute;
+  top: var(--safe-top);
+  right: var(--safe-right);
+  bottom: var(--safe-bottom);
+  left: var(--safe-left);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional aperture outline for alignment (toggle with Alt+A). */
+#aperture {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+#aperture.show { opacity: 0.5; }
+#aperture polygon { fill: none; stroke: var(--aether); stroke-width: 2; stroke-dasharray: 10 8; }
+
+/* Header */
+.header { text-align: center; padding-top: 6px; }
+.brand {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 74px;
+  letter-spacing: 0.08em;
+  color: var(--gold-bright);
+  text-shadow: 0 0 24px rgba(217, 179, 106, 0.35), 0 2px 0 rgba(0,0,0,0.5);
+}
+.subtitle {
+  margin-top: 6px;
+  font-size: 26px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--aether);
+  opacity: 0.85;
+}
+
+/* Status strip */
+.netstrip {
+  margin: 18px auto 0;
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+  font-size: 24px; color: var(--ink-dim);
+}
+.netstrip .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; margin-right: 10px; vertical-align: middle; }
+.dot.on { background: var(--ok); box-shadow: 0 0 12px var(--ok); }
+.dot.off { background: var(--danger); box-shadow: 0 0 12px var(--danger); }
+.netstrip b { color: var(--ink); font-weight: 700; }
+.netstrip .wifi-btn {
+  font-family: 'Cinzel', serif; font-size: 22px;
+  color: var(--aether); background: transparent;
+  border: 1px solid var(--panel-edge); border-radius: 10px;
+  padding: 8px 18px; cursor: pointer;
+}
+.netstrip .wifi-btn:active { background: rgba(79, 208, 255, 0.12); }
+
+.rule {
+  margin: 22px auto 10px; width: 78%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+/* Game grid */
+.games {
+  flex: 1; margin-top: 10px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 26px; align-content: start;
+  overflow: hidden;
+}
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: 18px;
+  padding: 26px 28px;
+  display: flex; flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 40px rgba(40, 90, 150, 0.06);
+}
+.card h2 {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 700; font-size: 38px; color: var(--gold-bright);
+  letter-spacing: 0.03em;
+}
+.card .ver { margin-top: 8px; font-size: 22px; color: var(--ink-dim); }
+.card .ver b { color: var(--ink); }
+.badge {
+  display: inline-block; margin-left: 12px; padding: 3px 12px; border-radius: 999px;
+  font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.badge.running { background: rgba(88, 224, 138, 0.16); color: var(--ok); border: 1px solid rgba(88,224,138,0.4); }
+.badge.idle { background: rgba(159, 180, 214, 0.12); color: var(--ink-dim); border: 1px solid var(--panel-edge); }
+.badge.missing { background: rgba(255, 107, 107, 0.14); color: var(--danger); border: 1px solid rgba(255,107,107,0.4); }
+
+.update-note {
+  margin-top: 14px; padding: 14px 16px; border-radius: 12px;
+  background: rgba(79, 208, 255, 0.08);
+  border: 1px solid rgba(79, 208, 255, 0.28);
+  font-size: 20px; color: var(--ink);
+}
+.update-note .tag { color: var(--aether); font-weight: 700; }
+.update-note .meta { display: block; margin-top: 4px; font-size: 18px; color: var(--ink-dim); }
+
+.card .actions { margin-top: auto; padding-top: 22px; display: flex; gap: 16px; }
+.btn {
+  flex: 1; font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700;
+  padding: 16px 10px; border-radius: 12px; cursor: pointer;
+  border: 1px solid var(--panel-edge); color: var(--ink);
+  background: rgba(255,255,255,0.04);
+  transition: transform 0.05s, background 0.15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn.play { background: linear-gradient(180deg, rgba(79,208,255,0.28), rgba(28,111,168,0.28)); border-color: rgba(79,208,255,0.5); color: var(--gold-bright); }
+.btn.stop { background: rgba(255,107,107,0.14); border-color: rgba(255,107,107,0.4); color: #ffd4d4; }
+.btn.update { background: linear-gradient(180deg, rgba(217,179,106,0.30), rgba(140,110,50,0.25)); border-color: rgba(217,179,106,0.55); color: #fff3dd; }
+.btn.update.pulse { animation: pulse 1.6s ease-in-out infinite; }
+.btn[disabled] { opacity: 0.4; pointer-events: none; }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 179, 106, 0.0); }
+  50% { box-shadow: 0 0 22px 2px rgba(217, 179, 106, 0.55); }
+}
+
+.empty { text-align: center; color: var(--ink-dim); font-size: 26px; margin-top: 60px; }
+
+/* ---- WiFi page ---- */
+.wifi-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.wifi-head { display: flex; align-items: center; justify-content: space-between; }
+.back-btn {
+  font-family: 'Cinzel', serif; font-size: 24px; color: var(--aether);
+  background: transparent; border: 1px solid var(--panel-edge); border-radius: 10px;
+  padding: 10px 22px; cursor: pointer;
+}
+.wifi-list { flex: 1; margin-top: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 8px; }
+.wifi-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--panel); border: 1px solid var(--panel-edge);
+  border-radius: 14px; padding: 18px 24px; cursor: pointer;
+}
+.wifi-row.active { border-color: rgba(88,224,138,0.5); background: rgba(88,224,138,0.08); }
+.wifi-row .name { font-size: 28px; color: var(--ink); }
+.wifi-row .meta { font-size: 20px; color: var(--ink-dim); display: flex; align-items: center; gap: 18px; }
+.lock { opacity: 0.8; }
+.bars { font-variant-numeric: tabular-nums; }
+
+/* On-screen keyboard / prompt */
+.overlay {
+  position: absolute; inset: 0; z-index: 10;
+  background: rgba(4, 8, 16, 0.86);
+  display: none; align-items: center; justify-content: center;
+}
+.overlay.show { display: flex; }
+.dialog {
+  width: 1100px; max-width: 90%;
+  background: var(--panel); border: 1px solid var(--panel-edge);
+  border-radius: 20px; padding: 36px 40px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+}
+.dialog h3 { font-family: 'Cinzel Decorative', serif; font-size: 36px; color: var(--gold-bright); }
+.dialog .field { margin-top: 20px; }
+.dialog input {
+  width: 100%; font-family: 'Cinzel', serif; font-size: 32px; color: var(--ink);
+  background: rgba(0,0,0,0.35); border: 1px solid var(--panel-edge);
+  border-radius: 12px; padding: 16px 20px; outline: none;
+}
+.kbd { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.kbd-row { display: flex; gap: 10px; justify-content: center; }
+.key {
+  min-width: 74px; height: 74px; font-size: 30px; font-family: 'Cinzel', serif;
+  color: var(--ink); background: rgba(255,255,255,0.05);
+  border: 1px solid var(--panel-edge); border-radius: 10px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.key:active { background: rgba(79,208,255,0.18); }
+.key.wide { min-width: 150px; }
+.key.space { min-width: 460px; }
+.dialog .dlg-actions { margin-top: 26px; display: flex; gap: 16px; }
+.msg { margin-top: 16px; font-size: 22px; min-height: 28px; }
+.msg.err { color: var(--danger); }
+.msg.ok { color: var(--ok); }
+
+/* Toast */
+#toast {
+  position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%);
+  background: var(--panel); border: 1px solid var(--panel-edge); color: var(--ink);
+  padding: 16px 28px; border-radius: 12px; font-size: 24px; opacity: 0;
+  transition: opacity 0.25s; pointer-events: none; z-index: 20;
+}
+#toast.show { opacity: 1; }
